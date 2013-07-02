@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "ndarray": "~1.0.3",
-    "ndarray-downsample2x": "~0.0.1"
+    "ndarray-downsample2x": "~0.1.0"
   },
   "devDependencies": {
     "save-pixels": "~0.2.0",
