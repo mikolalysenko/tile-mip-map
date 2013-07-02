@@ -27,7 +27,7 @@ function makeTileMipMap(tilearray) {
         for(var k=0; k<channels; ++k) {
           var t0 = level.pick(i,j,undefined,undefined,k)
           var t1 = plevel.pick(i,j,undefined,undefined,k)
-          downsample(t0, t1)
+          downsample(t0, t1, 0, 255)
         }
       }
     }
