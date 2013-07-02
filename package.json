@@ -11,8 +11,7 @@
     "ndarray-downsample2x": "~0.0.1"
   },
   "devDependencies": {
-    "save-pixels": "~0.2.0"
-    "cwise": "~0.3.3",
+    "save-pixels": "~0.2.0",
     "get-pixels": "~1.0.1",
     "ndarray-ops": "~1.1.0"
   },
