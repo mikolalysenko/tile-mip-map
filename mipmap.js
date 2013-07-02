@@ -1,33 +1,37 @@
 "use strict"
 
 var ndarray = require("ndarray")
+var ops = require("ndarray-ops")
 var downsample = require("ndarray-downsample2x")
 
 function makeTileMipMap(tilearray) {
-  var levels = [tilearray]
+  var levels = []
   
   var s = tilearray.shape
   var nx = s[0]
   var ny = s[1]
-  var tx = s[2]>>1
-  var ty = s[3]>>1
+  var tx = s[2]
+  var ty = s[3]
   var channels = s[4]
   var ctor = tilearray.data.constructor
   
   while(tx > 0 && ty > 0) {
     var sz     = nx * ny * tx * ty * channels
-    var level  = ndarray(new ctor(sz),
-              [nx, ny, tx, ty, channels],
-              [channels*ny*tx*ty, channels*ty, channels*ny*ty, channels, 1],
-              0)
-    var plevel = levels[levels.length-1]
+    var shape  = [nx, ny, tx, ty, channels]
+    var stride = [channels*ny*tx*ty, channels*ty, channels*ny*ty, channels, 1]
+    var level  = ndarray(new ctor(sz), shape, stride, 0)
     
-    for(var i=0; i<nx; ++i) {
-      for(var j=0; j<ny; ++j) {
-        for(var k=0; k<channels; ++k) {
-          var t0 = level.pick(i,j,undefined,undefined,k)
-          var t1 = plevel.pick(i,j,undefined,undefined,k)
-          downsample(t0, t1, 0, 255)
+    if(tx === s[2] && ty === s[3]) {
+      ops.assign(level, tilearray)
+    } else {
+      var plevel = levels[levels.length-1]
+      for(var i=0; i<nx; ++i) {
+        for(var j=0; j<ny; ++j) {
+          for(var k=0; k<channels; ++k) {
+            var t0 = level.pick(i,j,undefined,undefined,k)
+            var t1 = plevel.pick(i,j,undefined,undefined,k)
+            downsample(t0, t1, 0, 255)
+          }
         }
       }
     }
