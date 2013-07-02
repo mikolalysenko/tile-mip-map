@@ -56,10 +56,11 @@ Here is what the different mip levels look like:
 
     npm install tile-mip-map
     
-### `require("tile-mip-map")(tilemap)`
+### `require("tile-mip-map")(tilemap[, pad])`
 Constructs a mip pyramid for the given tile map
 
 * `tilemap` is a 5d array where the first two dimenions are the number of tiles, the next two are the width of each tile, and the last dimension is the number of channels.
+* `pad` a flag which if set pads each texture by 1/2 on each side
 
 **Returns** A list of mip pyramids.
 
