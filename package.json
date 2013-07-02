@@ -1,6 +1,6 @@
 {
   "name": "tile-mip-map",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Tile base mip mapping for texture atlases",
   "main": "mipmap.js",
   "directories": {
