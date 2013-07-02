@@ -33,19 +33,23 @@ Here is what the different mip levels look like:
 
 #### 0:
 
-<img src="example/0.png">
+<img src="https://raw.github.com/mikolalysenko/tile-mip-map/master/example/0.png">
 
 #### 1:
 
-<img src="example/1.png">
+<img src="https://raw.github.com/mikolalysenko/tile-mip-map/master/example/1.png">
 
 #### 2:
 
-<img src="example/2.png">
+<img src="https://raw.github.com/mikolalysenko/tile-mip-map/master/example/2.png">
 
 #### 3:
 
-<img src="example/3.png">
+<img src="https://raw.github.com/mikolalysenko/tile-mip-map/master/example/3.png">
+
+#### 4:
+
+<img src="https://raw.github.com/mikolalysenko/tile-mip-map/master/example/4.png">
 
 
 ## Install
