@@ -1,0 +1,39 @@
+{
+  "name": "tile-mip-map",
+  "version": "0.0.0",
+  "description": "Tile base mip mapping for texture atlases",
+  "main": "mipmap.js",
+  "directories": {
+    "example": "example"
+  },
+  "dependencies": {
+    "ndarray": "~1.0.3",
+    "ndarray-downsample2x": "~0.0.1"
+  },
+  "devDependencies": {
+    "save-pixels": "~0.2.0"
+    "cwise": "~0.3.3",
+    "get-pixels": "~1.0.1",
+    "ndarray-ops": "~1.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mikolalysenko/tile-mip-map.git"
+  },
+  "keywords": [
+    "tile",
+    "mip",
+    "map",
+    "ndarray"
+  ],
+  "author": "Mikola Lysenko",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "gitHead": "4e32570bad0b5d8f08aad530732c13fd87f93cfb",
+  "bugs": {
+    "url": "https://github.com/mikolalysenko/tile-mip-map/issues"
+  }
+}
