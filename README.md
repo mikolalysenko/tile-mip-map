@@ -29,6 +29,25 @@ require("get-pixels")("./painterly.png", function(err, image) {
 })
 ```
 
+Here is what the different mip levels look like:
+
+#### 0:
+
+<img src="example/0.png">
+
+#### 1:
+
+<img src="example/1.png">
+
+#### 2:
+
+<img src="example/2.png">
+
+#### 3:
+
+<img src="example/3.png">
+
+
 ## Install
 
     npm install tile-mip-map
