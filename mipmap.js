@@ -2,30 +2,24 @@
 
 var ndarray = require("ndarray")
 var ops = require("ndarray-ops")
+var unpack = require("ndarray-unpack")
 var downsample = require("ndarray-downsample2x")
 
 function applyPad(out, inp) {
   var tx = inp.shape[0]
   var ty = inp.shape[1]
-  var hx = tx>>>1
-  var hy = ty>>>1
-  var ox = tx*2
-  var oy = ty*2
+
+  var otile = ndarray(out.data,
+      [2, 2, tx, ty],
+      [tx*out.stride[0], ty*out.stride[1], out.stride[0], out.stride[1]],
+      out.offset)
   
-  //Copy corners
-  ops.assign(out.lo(    0,    0).hi(hx,hy), inp.lo(hx,hy).hi(hx,hy))
-  ops.assign(out.lo(ox-hx,    0).hi(hx,hy), inp.lo( 0,hy).hi(hx,hy))
-  ops.assign(out.lo(ox-hx,oy-hy).hi(hx,hy), inp.lo( 0, 0).hi(hx,hy))
-  ops.assign(out.lo(    0,oy-hy).hi(hx,hy), inp.lo(hx, 0).hi(hx,hy))
-  
-  //Copy sides
-  ops.assign(out.lo(   hx,    0).hi(tx,hy), inp.lo( 0,hy).hi(tx,hy))
-  ops.assign(out.lo(   hx,oy-hy).hi(tx,hy), inp.lo( 0, 0).hi(tx,hy))
-  ops.assign(out.lo(    0,   hy).hi(hx,ty), inp.lo(hx, 0).hi(hx,ty))
-  ops.assign(out.lo(ox-hx,   hy).hi(hx,ty), inp.lo( 0, 0).hi(hx,ty))
-  
-  //Copy center
-  ops.assign(out.lo(hx,hy).hi(tx,ty), inp)
+  var itile = ndarray(inp.data,
+      [2, 2, tx, ty],
+      [0, 0, inp.stride[0], inp.stride[1]],
+      inp.offset)
+
+  ops.assign(otile, itile)
 }
 
 function makeTileMipMap(tilearray, pad) {

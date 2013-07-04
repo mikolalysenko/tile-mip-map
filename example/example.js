@@ -3,6 +3,8 @@
 var fs = require("fs")
 var ndarray = require("ndarray")
 var savePixels = require("save-pixels")
+var downsample = require("ndarray-downsample2x")
+
 
 require("get-pixels")("./painterly.png", function(err, image) {
 
@@ -20,5 +22,5 @@ require("get-pixels")("./painterly.png", function(err, image) {
     var s = mipmap[i].shape
     var x = ndarray(mipmap[i].data, [s[0]*s[2], s[1]*s[3], s[4]])
     savePixels(x, "png").pipe(fs.createWriteStream(i + ".png"))
-  }
+  }  
 })
