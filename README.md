@@ -60,7 +60,7 @@ Here is what the different mip levels look like:
 Constructs a mip pyramid for the given tile map
 
 * `tilemap` is a 5d array where the first two dimenions are the number of tiles, the next two are the width of each tile, and the last dimension is the number of channels.
-* `pad` a flag which if set pads each texture by 1/2 on each side
+* `pad` the number of times to pad each tile by.  default 1x
 
 **Returns** A list of mip pyramids.
 

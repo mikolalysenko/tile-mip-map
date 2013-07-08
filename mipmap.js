@@ -5,40 +5,21 @@ var ops = require("ndarray-ops")
 var unpack = require("ndarray-unpack")
 var downsample = require("ndarray-downsample2x")
 
-function applyPad(out, inp) {
-  var tx = inp.shape[0]
-  var ty = inp.shape[1]
-
-  var otile = ndarray(out.data,
-      [2, 2, tx, ty],
-      [tx*out.stride[0], ty*out.stride[1], out.stride[0], out.stride[1]],
-      out.offset)
-  
-  var itile = ndarray(inp.data,
-      [2, 2, tx, ty],
-      [0, 0, inp.stride[0], inp.stride[1]],
-      inp.offset)
-
-  ops.assign(otile, itile)
-}
-
 function makeTileMipMap(tilearray, pad) {
-  pad = !!pad
+  pad = pad || 1
 
   var levels = []
   
   var s = tilearray.shape
   var nx = s[0]
   var ny = s[1]
-  var tx = s[2]
-  var ty = s[3]
+  var hx = s[2]
+  var hy = s[3]
   var channels = s[4]
   var ctor = tilearray.data.constructor
   
-  if(pad) {
-    tx = tx * 2
-    ty = ty * 2
-  }
+  var tx = hx * pad
+  var ty = hy * pad
   
   while(tx > 0 && ty > 0) {
     var sz     = nx * ny * tx * ty * channels
@@ -47,18 +28,18 @@ function makeTileMipMap(tilearray, pad) {
     var level  = ndarray(new ctor(sz), shape, stride, 0)
     
     if(levels.length === 0) {
-      if(pad) {
-        for(var i=0; i<nx; ++i) {
-          for(var j=0; j<ny; ++j) {
-            for(var k=0; k<channels; ++k) {
-              var t0 = level.pick(i,j,undefined,undefined,k)
-              var t1 = tilearray.pick(i,j,undefined,undefined,k)
-              applyPad(t0, t1, 0, 255)
+      for(var i=0; i<nx; ++i) {
+        for(var j=0; j<ny; ++j) {
+          for(var k=0; k<channels; ++k) {
+            var t0 = level.pick(i,j,undefined,undefined,k)
+            var t1 = tilearray.pick(i,j,undefined,undefined,k)
+            for(var x=0; x<pad; ++x) {
+              for(var y=0; y<pad; ++y) {
+                ops.assign(t0.lo(hx*x, hy*y).hi(hx,hy), t1)
+              }
             }
           }
         }
-      } else {
-        ops.assign(level, tilearray)
       }
     } else {
       var plevel = levels[levels.length-1]

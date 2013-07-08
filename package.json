@@ -14,7 +14,8 @@
   "devDependencies": {
     "save-pixels": "~0.2.0",
     "get-pixels": "~1.0.1",
-    "ndarray-ops": "~1.1.0"
+    "ndarray-ops": "~1.1.0",
+    "isabella-texture-pack": "0.0.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
