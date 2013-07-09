@@ -2,7 +2,6 @@
 
 var ndarray = require("ndarray")
 var ops = require("ndarray-ops")
-var unpack = require("ndarray-unpack")
 var downsample = require("ndarray-downsample2x")
 
 function makeTileMipMap(tilearray, pad) {
